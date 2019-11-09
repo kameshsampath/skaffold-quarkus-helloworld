@@ -1,0 +1,29 @@
+apiVersion: skaffold/v1
+kind: Config
+metadata:
+  name: hello-world
+build:
+  artifacts:
+  - image: rhdevelopers/helloworld
+    context: .
+    sync:
+      manual:
+       - src: 'src/**/*.java'
+         dest: /workspace/hello-world/src
+         strip: 'src/'
+       - src: 'pom.xml'
+         dest: /workspace/hello-world/
+    custom:
+      # for windows use build.cmd
+      #buildCommand: .\build.cmd
+      buildCommand: ./build.sh
+      dependencies:
+        dockerfile: 
+          path: Dockerfile.dev
+  local:
+    push: false
+
+deploy:
+  kubectl:
+    manifests:
+    - k8s/app.yaml

@@ -1,0 +1,31 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: skaffold-quarkus-helloworld
+spec:
+  selector:
+    app: skaffold-quarkus-helloworld
+  ports:
+  - port: 8080
+    targetPort: 8080
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: skaffold-quarkus-helloworld
+spec:
+  selector:
+    matchLabels:
+      app: skaffold-quarkus-helloworld
+  template:
+    metadata:
+      labels:
+        app: skaffold-quarkus-helloworld
+    spec:
+      containers:
+      - name: skaffold-quarkus-helloworld
+        image: rhdevelopers/skaffold-quarkus-helloworld
+        imagePullPolicy: IfNotPresent
+        ports:
+        - containerPort: 8080
+
