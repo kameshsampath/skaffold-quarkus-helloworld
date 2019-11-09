@@ -1,18 +1,18 @@
 apiVersion: skaffold/v1
 kind: Config
 metadata:
-  name: hello-world
+  name: skaffold-quarkus-helloworld
 build:
   artifacts:
-  - image: rhdevelopers/helloworld
+  - image: rhdevelopers/skaffold-quarkus-helloworld
     context: .
     sync:
       manual:
        - src: 'src/**/*.java'
-         dest: /workspace/hello-world/src
+         dest: /workspace/skaffold-quarkus-helloworld/src
          strip: 'src/'
        - src: 'pom.xml'
-         dest: /workspace/hello-world/
+         dest: /workspace/skaffold-quarkus-helloworld/
     custom:
       # for windows use build.cmd
       #buildCommand: .\build.cmd
@@ -22,7 +22,6 @@ build:
           path: Dockerfile.dev
   local:
     push: false
-
 deploy:
   kubectl:
     manifests:

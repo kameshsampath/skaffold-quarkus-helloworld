@@ -9,7 +9,7 @@ A demo to show how to use https://https://skaffold.dev/[Skaffold] with https://q
 * http://openjdk.java.net/install/[Java 8]
 * https://maven.apache.org[Apache Maven]
 * https://https://skaffold.dev/[Skaffold]
-* https://www.docker.com/products/docker-desktop[Docker]
+* https://www.docker.com/products/docker-desktop[Docker] (Optional)
 
 == Setup Kubernetes Cluster
 
@@ -21,7 +21,7 @@ minikube start -p quarkus-demos --memory=8192 --cpus=4 --disk-size=50g #<1>
 
 <1> Please add the other needed options as per your operating system
 
-== Setup Nexus
+== Setup Nexus(Optional)
 
 We will use nexus for caching maven artifacts so that builds are faster.
 
@@ -30,7 +30,7 @@ We will use nexus for caching maven artifacts so that builds are faster.
 kubectl apply -f k8s/nexus.yaml
 ----
 
-Wait for some time to have nexus initialize and run. You can watch the status via `kubectl get pods -w `, use kbd:[Ctrl+c] to terminate the watch
+Wait for some time to have nexus initialize and run. You can watch the status via `kubectl get pods -w`, use kbd:[Ctrl+c] to terminate the watch
 
 == Run Skaffold
 
@@ -42,22 +42,22 @@ skaffold dev --port-forward #<1>
 
 [NOTE]
 ====
-* The first build will be bit slower as it needs to cache the artifacts in nexus maven repository
+* The first build will be bit slower as it needs to cache the maven artifacts in nexus maven repository
 * You can watch the status via `kubectl get pods -w `, use kbd:[Ctrl+c] to terminate the watch
 ====
 
-Once you see your application running, something like 
+Once you see your application running alongside nexus (if you had deployed earlier):
 
 [source,bash]
 ----
-NAME                     READY   STATUS    RESTARTS   AGE
-nexus-5585f7fcf6-jk6j7   1/1     Running   0          29m
-hello-world-664f986567-6f726   1/1   Running   0     2s
+NAME                                           READY   STATUS    RESTARTS   AGE
+nexus-5585f7fcf6-jk6j7                         1/1     Running   0          5h3m
+skaffold-quarkus-helloworld-6f99cbb648-lsqwh   1/1     Running   0          5s
 ----
 
 Try opening the url http://locahost:8080/hello, which should show a message like **Welcome to Quarkus!!** from the link:./src/main/java/com/redhat/developers/GreetingResource.java#L14[GreetingResource.java]
 
-Now make any changes to the sources in your editor, and try refreshing the browser you will see Quarkus live reload in action without application(pod) redeploy.
+Now make any changes to the sources in your editor and try refreshing the browser you will see Quarkus live reload happening as usual on the terminal where you had started `skaffold dev` without the `skaffold-quarkus-hello-world` redeployed.
 
 [TIP]
 ====
