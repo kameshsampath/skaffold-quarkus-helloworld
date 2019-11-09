@@ -50,7 +50,9 @@ Once you see your application running, something like
 
 [source,bash]
 ----
-
+NAME                     READY   STATUS    RESTARTS   AGE
+nexus-5585f7fcf6-jk6j7   1/1     Running   0          29m
+hello-world-664f986567-6f726   1/1   Running   0     2s
 ----
 
 Try opening the url http://locahost:8080/hello, which should show a message like **Welcome to Quarkus!!** from the link:./src/main/java/com/redhat/developers/GreetingResource.java#L14[GreetingResource.java]
