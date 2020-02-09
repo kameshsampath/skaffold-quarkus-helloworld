@@ -37,6 +37,12 @@ Wait for some time to have nexus initialize and run. You can watch the status vi
 
 == Run Skaffold
 
+[IMPORTANT]
+====
+In both development and production mode, the container image will not be pushed to remote 
+container registry.
+====
+
 === Quarkus Development mode 
 
 [source,bash]
@@ -69,12 +75,28 @@ Now make any changes to the sources in your editor and try refreshing the browse
 Though the demo application provides `build.cmd` for windows users I personally recommend https://docs.microsoft.com/en-us/windows/wsl/install-win10[WSL] and https://code.visualstudio.com/docs/remote/remote-overview[VS Code Remote Development]
 ====
 
-
 === Quarkus Production mode
 
-To run Quarkus application in production mode, we need to use the multi stage docker build to build the native image and use it in Kubernetes application deployment.
+To run Quarkus application in production mode, we need to use the multi stage docker build; to build the quarkus application container image and use it in Kubernetes application deployment.
 
 The following commands starts a one time deployment of Quarkus application with the port-forward and it also tails the logs from the application once its up and running.
+
+[NOTE]
+====
+If you want to deploy Quarkus JVM image then run the following command before running skaffold:
+
+[source,bash]
+----
+cp Dockerfile.jvm Dockerfile
+----
+
+If you want to deploy Quarkus JVM image then run the following command before running skaffold:
+
+[source,bash]
+----
+cp Dockerfile.native Dockerfile
+----
+====
 
 [source,bash]
 ----
@@ -83,7 +105,7 @@ skaffold run --port-forward --tail
 
 === Cleanup 
 
-To delete te application 
+To delete the application:
 
 [source,bash]
 ----
