@@ -87,15 +87,21 @@ If you want to deploy Quarkus JVM image then run the following command before ru
 
 [source,bash]
 ----
-cp Dockerfile.jvm Dockerfile
+cp src/main/docker/Dockerfile.jvm Dockerfile
 ----
 
-If you want to deploy Quarkus JVM image then run the following command before running skaffold:
+If you want to deploy Quarkus Native image then run the following command before running skaffold:
 
 [source,bash]
 ----
-cp Dockerfile.native Dockerfile
+cp src/main/docker/Dockerfile.native Dockerfile
 ----
+====
+
+[WARNING]
+====
+You might face a build failure in pulling the image `quay.io/quarkus/centos-quarkus-maven:19.3.1-java8`, as Quarkus repo in https://quay.io is not v2_2 enabled. If you encounter the issue with pull then do a manual pull 
+`docker pull quay.io/quarkus/centos-quarkus-maven:19.3.1-java8`
 ====
 
 [source,bash]
