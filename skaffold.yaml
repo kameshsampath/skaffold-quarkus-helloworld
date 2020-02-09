@@ -5,21 +5,6 @@ metadata:
 build:
   artifacts:
   - image: rhdevelopers/skaffold-quarkus-helloworld
-    context: .
-    sync:
-      manual:
-       - src: 'src/**/*.java'
-         dest: /workspace/skaffold-quarkus-helloworld/src
-         strip: 'src/'
-       - src: 'pom.xml'
-         dest: /workspace/skaffold-quarkus-helloworld/
-    custom:
-      # for windows use build.cmd
-      #buildCommand: .\build.cmd
-      buildCommand: ./build.sh
-      dependencies:
-        dockerfile: 
-          path: Dockerfile.dev
   local:
     push: false
 deploy:

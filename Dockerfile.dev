@@ -3,7 +3,7 @@ FROM quay.io/rhdevelopers/tutorial-tools:0.0.3
 # set up the nexus repo locally so that each build is faster
 # check the nexus deployment in $PROJECT_HOME/k8s/nexus.yaml
 
-ENV MAVEN_MIRROR_URL http://nexus:8081/nexus/content/groups/public/
+ENV MAVEN_MIRROR_URL http://192.168.64.1:8081/nexus/content/groups/public/
 
 # make the project directory
 

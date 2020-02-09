@@ -4,7 +4,7 @@ set -eo pipefail
 
 image=$(echo $IMAGE)
 
-echo $MAVEN_MIRROR_URL
+echo "Using maven mirror $MAVEN_MIRROR_URL"
 
 if [ ! -z "$image" ]; then
   docker build -t $image -f Dockerfile.dev $BUILD_CONTEXT

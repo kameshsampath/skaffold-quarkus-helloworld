@@ -1,7 +1,8 @@
 = Skaffold Quarkus Hello World
 :experimental:
 
-A demo to show how to use https://https://skaffold.dev/[Skaffold] with https://quarkus.io[Quarkus] developer mode to enable rapid Java application with Kubernetes.
+A demo to show how to use https://https://skaffold.dev/[Skaffold] to do rapid application development
+with https://quarkus.io[Quarkus].
 
 == Pre-requisites
 
@@ -17,9 +18,11 @@ A demo to show how to use https://https://skaffold.dev/[Skaffold] with https://q
 ----
 minikube profile quarkus-demos
 minikube start -p quarkus-demos --memory=8192 --cpus=4 --disk-size=50g #<1>
+eval $(minikube docker-env) #<2>
 ----
 
 <1> Please add the other needed options as per your operating system
+<2> Make the current docker context to be that of minikube
 
 == Setup Nexus(Optional)
 
@@ -34,11 +37,13 @@ Wait for some time to have nexus initialize and run. You can watch the status vi
 
 == Run Skaffold
 
+=== Quarkus Development mode 
+
 [source,bash]
 ----
-skaffold dev --port-forward #<1>
+skaffold dev --file skaffold-dev.yaml --port-forward #<1>
 ----
-<1> Run skaffold in `dev` mode. The **port-forward** option automatically foward the kubernetes service port(default is 8080) to localhost port (default is 8080). By default it maps the application service port `8080` to host `8080`
+<1> Run skaffold in `dev` mode. The **port-forward** option automatically forward the Kubernetes service port(default is 8080) to localhost port (default is 8080). By default it maps the application service port `8080` to host `8080`
 
 [NOTE]
 ====
@@ -63,3 +68,24 @@ Now make any changes to the sources in your editor and try refreshing the browse
 ====
 Though the demo application provides `build.cmd` for windows users I personally recommend https://docs.microsoft.com/en-us/windows/wsl/install-win10[WSL] and https://code.visualstudio.com/docs/remote/remote-overview[VS Code Remote Development]
 ====
+
+
+=== Quarkus Production mode
+
+To run Quarkus application in production mode, we need to use the multi stage docker build to build the native image and use it in Kubernetes application deployment.
+
+The following commands starts a one time deployment of Quarkus application with the port-forward and it also tails the logs from the application once its up and running.
+
+[source,bash]
+----
+skaffold run --port-forward --tail
+----
+
+=== Cleanup 
+
+To delete te application 
+
+[source,bash]
+----
+skaffold delete
+----
