@@ -24,17 +24,20 @@ spec:
     spec:
       containers:
       - name: nexus
-        image: docker.io/sonatype/nexus
+        image: docker.io/sonatype/nexus3
         imagePullPolicy: IfNotPresent
+        env:
+          - name: NEXUS_CONTEXT
+            value: nexus
         resources:
           limits:
-            memory: "1024Mi"
+            memory: "2Gi"
             cpu: "500m"
         ports:
         - containerPort: 8081
         volumeMounts:
         - name: nexus-data
-          mountPath: /sonatype-work
+          mountPath: /nexus-data
       volumes:
       - name: nexus-data
         emptyDir: {}

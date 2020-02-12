@@ -5,7 +5,7 @@ FROM quay.io/quarkus/centos-quarkus-maven:19.3.1-java8 as build
 
 # If you want to use nexus or any other maven repository manager then
 # uncomment this to point to the repo manager
-# ENV MAVEN_MIRROR_URL http://nexus:8081/nexus/content/groups/public/
+# ENV MAVEN_MIRROR_URL http://nexus:8081/nexus/repository/maven-public/
 
 USER root
 
