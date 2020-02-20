@@ -9,10 +9,10 @@ build:
     sync:
       manual:
        - src: 'src/**/*.java'
-         dest: /workspace/skaffold-quarkus-helloworld/src
+         dest: /usr/src/app/src
          strip: 'src/'
        - src: 'pom.xml'
-         dest: /workspace/skaffold-quarkus-helloworld/
+         dest: /usr/src/app
     custom:
       # for windows use build.cmd
       #buildCommand: .\build.cmd
